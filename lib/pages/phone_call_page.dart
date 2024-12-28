@@ -111,13 +111,19 @@ class _PhoneCallPageState extends State<PhoneCallPage>
                               crossAxisCount: 3,
                               children: List.generate(12, (index) {
                                 if (phoneList[index] is String) {
-                                  return Center(
-                                      child: Text(
-                                    phoneList[index],
-                                    style: TextStyle(fontSize: 28),
-                                  ));
+                                  return AnimatedSwitcher(
+                                    duration: const Duration(milliseconds: 200),
+                                    child: Center(
+                                        child: Text(
+                                      phoneList[index],
+                                      style: TextStyle(fontSize: 28),
+                                    )),
+                                  );
                                 } else {
-                                  return phoneList[index];
+                                  return AnimatedSwitcher(
+                                    duration: const Duration(milliseconds: 200),
+                                    child: phoneList[index],
+                                  );
                                 }
                               }),
                             ),
@@ -140,8 +146,10 @@ class _PhoneCallPageState extends State<PhoneCallPage>
                                     setState(() {
                                       if (!isKeyboardPressed) {
                                         _controller.forward();
+                                        phoneList = phoneListWhenNotHidden;
                                       } else {
                                         _controller.reverse();
+                                        phoneList = phoneListWhenHidden;
                                       }
                                       isKeyboardPressed = !isKeyboardPressed;
                                     });
